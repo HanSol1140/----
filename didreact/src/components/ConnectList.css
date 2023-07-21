@@ -1,0 +1,90 @@
+#ConnectList{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+
+}
+#ConnectList .blackbox{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color:rgba(0,0,0,0.5);
+}
+
+#ConnectList .connectlist{
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 1200px;
+    min-height: 600px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 10px;
+}
+#ConnectList .connectlist .connectlist_title{
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 4px;
+}
+#ConnectList .connectlist .connectlist_title p{
+    position: relative;
+    left: -30px;
+    top: 12px;
+    cursor: pointer;
+}
+#ConnectList .connectlist .connectlist_title p span{
+    width: 28px;
+    height: 4px;
+    border-radius: 8px;
+    position: absolute;
+    background-color: black;
+}
+#ConnectList .connectlist .connectlist_title p span:nth-child(1){
+    transform: rotate(45deg);
+}
+
+#ConnectList .connectlist .connectlist_title p span:nth-child(2){
+    transform: rotate(-45deg);
+}
+
+
+
+#ConnectList .connectlist article:nth-child(2){
+    display: flex;
+}
+#ConnectList .connectlist article:nth-child(2) div{
+    width: 50%;
+    
+    
+}
+#ConnectList .connectlist article:nth-child(2) div h2{
+    padding: 4px;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+#ConnectList .connectlist article:nth-child(2) div ul{
+    width: 100%;
+}
+#ConnectList .connectlist article:nth-child(2) div ul li{
+    width: 90%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 4px;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #ccc;
+    border-radius: 4px;
+    margin-bottom: 2px;
+}

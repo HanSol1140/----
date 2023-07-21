@@ -1,0 +1,31 @@
+*{
+    margin:0 auto;
+    padding:0;
+}
+h2{
+    /* background: linear-gradient(to right, #51ebff, #3b6cd4); */
+    background-color: #ccc;
+    font-weight: bold;
+    padding:8px;
+    border-radius: 8px;
+    margin: 10px;
+}
+div{
+    margin-left: 20px;
+}
+button{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 4px;
+    border: 2px solid black;
+    margin-bottom: 4px;
+    border-radius: 4px;
+}
+input{
+    font-size: 20px;
+    font-weight: 400;
+    padding: 4px;
+    margin-bottom: 4px;
+    margin-right: 12px;
+    border-radius: 4px;
+}

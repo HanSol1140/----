@@ -1,0 +1,60 @@
+#AdvertPage {
+    margin: 0 auto;
+    width: 1000px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    /* padding: 10px; */
+    padding-top: 4px;
+}
+#AdvertPage .category ul{
+    display: flex;
+    margin-bottom: 10px;
+}
+#AdvertPage .category ul li:nth-child(1){
+    width: 400px;
+    color: #888;
+    font-weight: bold;
+    margin-left: 20px;
+    border-radius: 4px;
+    padding: 4px;
+    overflow: hidden;
+    box-shadow: 0px 4px 5px #ccc;
+}
+#AdvertPage .category ul li:nth-child(2){
+    width: 600px;
+    color: #888;
+    font-weight: bold;
+    margin-left: 20px;
+    border-radius: 4px;
+    padding: 4px;
+    overflow: hidden;
+    box-shadow: 0px 4px 5px #ccc;
+}
+#AdvertPage .advertList ul {
+    display: flex;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    background-color: #ddd;
+}
+#AdvertPage .advertList ul li:nth-child(1){
+    width: 400px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    border-radius: 8px;
+    padding: 4px;
+    overflow: hidden;
+}
+#AdvertPage .advertList ul li:nth-child(2){
+    width: 600px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+    border-radius: 8px;
+    padding: 4px;
+    overflow: hidden;
+}
+#AdvertPage .advertList ul:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}

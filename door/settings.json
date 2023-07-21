@@ -1,0 +1,11 @@
+{
+  "timer1": 30000,
+  "timer2": 10000,
+  "timer3": 14400000,
+  "timer4": 30000,
+  "masterpassword": "1234",
+  "mqttipport": "192.168.0.137:1883",
+  "esp32address": "192.168.0.88:8083",
+  "id": "07040994350",
+  "pass": "a1a86f6052719ec50f547d52d5afbc857cda73a8a007a0db70973bcbe179974805897410dcfbfc67a215f8106c06fe75fffcccf27855bd34b0b1453fe76935e3"
+}

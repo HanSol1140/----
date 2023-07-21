@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./settings.css">
+    <title>Settings Page</title>
+    <script>
+        let serverip = '';
+        let serverport = '';
+        // 서버 IP 받아오기
+        window.onload = getServer;
+        async function getServer() {
+            const response = await axios.get('/api/getServerIP');
+            serverip = response.data.ip;
+            serverport = response.data.port;
+            document.getElementById('serverip').textContent = serverip;
+            document.getElementById('serverport').textContent = serverport;
+            console.log(response.data);
+        }
+        // 타이머 설정
+        async function setTimer(timernumber) {
+            const timesetvalue = document.getElementById('timernumber').value;
+            try {
+                const response = await axios.get('http://' + serverip + ':' + serverport + '/api/setimer', {
+                    params: {
+                        timernumber,
+                        timesetvalue
+                    }
+                });
+                if (response.status === 200) {
+                    console.log(response.data);
+                    alert(response.data);
+                }
+            } catch (error) {
+                console.error('setTimer Test with API call:', error);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h2>타이머 설정</h2>
+    <div>
+        <input type="number" id="timernumber" placeholder="1000 = 1초"><br>
+        <button onclick="setTimer(1)">테이블 상승 대기시간 설정</button><br>
+    </div>
+
+</body>
+
+</html>

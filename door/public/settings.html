@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="./settings.css">
+    <script>
+        let serverip = '';        
+        let serverport = '';
+        let id = '';
+        let pass = '';
+        let callbackurl = "nanonix.html";
+        let callbackport = "8082";
+        let callbackhost = "1.212.172.134"; // 공인IP
+        let mqttipport = '';
+        let esp32address = '';
+
+        // 매장 비밀번호 설정
+        async function setPassword() {
+            try {
+                const password = document.getElementById('masterpassword').value;
+                const response = await axios.post('http://' + serverip + ':' + serverport + '/api/setpassword', {
+                    password,
+                });
+                if (response.status === 200) {
+                    console.log(response.data);
+                }
+            } catch (error) {
+                console.error('Error with API call:', error);
+            }
+        }
+        window.onload = getServer;
+        async function getServer() {
+            const response = await axios.get('/api/getServerIP');
+            serverip = response.data.ip;
+            serverport = response.data.port;
+            document.getElementById('serverip').textContent = serverip;
+            document.getElementById('serverport').textContent = serverport;
+            console.log(response.data);
+        }
+        async function setIdPass() {
+            try {
+                id = document.getElementById('setid').value;
+                document.getElementById('lguid').textContent = id;
+
+                pass2 = document.getElementById('setpass').value;
+                document.getElementById('lgupass').textContent = pass2;
+                pass = CryptoJS.SHA512(pass2).toString();
+                // alert(pass);
+                console.log(id);
+                console.log(pass);
+                //
+                try {
+                    const response = await axios.post('http://' + serverip + ':' + serverport + '/api/setidpass', {
+                        // const response = await axios.post(`http://${serverip}:${serverport}/RestApi/getringcallback`, {
+                        id: id,
+                        pass: pass,
+                    });
+
+                    if (await response.status === 200) {
+                        console.log(response.data);
+                    }
+
+                } catch (error) {
+                    console.error('Error with API call:', error);
+                }
+                //
+            } catch (error) {
+                console.error('setId Error', error);
+            }
+        }
+
+
+        
+        function setCallback() {
+            // callbackurl = document.getElementById('callbackurl').value;
+            callbackip = document.getElementById('callbackip').value;
+            callbackport = document.getElementById('callbackport').value;
+            // alert(callbackip + "/" + callbackport + ":" + callbackurl);
+            alert(callbackip + "/" + callbackport);
+        }
+
+
+        async function getringcallback() {
+            try {
+                const response = await axios.post('http://' + serverip + ':' + serverport + '/api/getringcallback', {
+                    // const response = await axios.post(`http://${serverip}:${serverport}/api/getringcallback`, {
+                    id: id,
+                    pass: pass,
+                });
+
+                if (await response.status === 200) {
+                    console.log(response.data);
+                }
+
+            } catch (error) {
+                console.error('Error with API call:', error);
+            }
+        }
+
+        // setringcallback
+        async function setringcallback() {
+            try {
+                const response = await axios.post('http://' + serverip + ':' + serverport + '/api/setringcallback', {
+                    id,
+                    pass,
+                    callbackurl,
+                    callbackhost,
+                    callbackport
+                });
+
+                if (await response.status === 200) {
+                    console.log(response.data);
+                }
+
+            } catch (error) {
+                console.error('Error with API call:', error);
+            }
+        }
+
+        // delringcallback
+        async function delringcallback() {
+            try {
+                const response = await axios.post('http://' + serverip + ':' + serverport + '/api/delringcallback', {
+                    id,
+                    pass,
+                });
+
+                if (await response.status === 200) {
+                    console.log(response.data);
+                }
+
+            } catch (error) {
+                console.error('Error with API call:', error);
+            }
+        }
+
+        // MQTT IP:PORT 설정
+        async function setMqttIpPort() {
+            mqttipport = document.getElementById('setmqttipport').value;
+            try {
+                const response = await axios.post('http://' + serverip + ':' + serverport + '/api/setmqttipport', {
+                    mqttipport: mqttipport
+                });
+                if (response.status === 200) {
+                    console.log(response.data);
+                }
+            } catch (error) {
+                console.error('setTimer Test with API call:', error);
+            }
+        }
+
+        // ESP32 수화기 Address 설정
+        async function setEsp32Address() {
+            esp32address = document.getElementById('setesp32address').value;
+            try {
+                const response = await axios.post('http://' + serverip + ':' + serverport + '/api/setesp32address', {
+                    esp32address: esp32address
+                });
+                if (response.status === 200) {
+                    console.log(response.data);
+                }
+            } catch (error) {
+                console.error('setTimer Test with API call:', error);
+            }
+        }
+        // 타이머 설정
+        async function setTimer(timernumber) {
+            const timesetvalue = document.getElementById('timernumber').value;
+            try {
+                const response = await axios.get('http://' + serverip + ':' + serverport + '/api/setimer', {
+                    params: {
+                        timernumber,
+                        timesetvalue
+                    }
+                });
+                if (response.status === 200) {
+                    console.log(response.data);
+                }
+            } catch (error) {
+                console.error('setTimer Test with API call:', error);
+            }
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <h2>설정을 완료한후 라즈베리파이(서버)를 재시작해주세요.</h2>
+    <br><br>
+
+    <h2>Server IP : <span id="serverip"></span> || Port : <span id="serverport"></span></h2>
+    <!-- <div> -->
+        <!-- <button onclick="getServer()">IP / PORT 받아오기</button> -->
+    <!-- </div> -->
+    <br>
+    <h2>매장 비밀번호 설정</h2>
+    <div>
+        <input type="number" id="masterpassword" placeholder="설정할 비밀번호 입력">
+        <button onclick="setPassword()">비밀번호 설정</button>
+    </div>
+
+
+    <h2>LGU+ ID / 비밀번호를 입력해주세요. <span id="lguid"></span> / <span id="lgupass"></span></h2>
+    <div>
+        <input type="text" id="setid">
+        <br>
+        
+        <input type="password" id="setpass">
+        
+        <button onclick="setIdPass()">아이디 / 비밀번호 설정</button>
+    </div>
+
+
+    <h2>전화 수신시 URL 알림</h2>
+    <div>
+        <h3>콜백 설정 계정세팅</h3>
+        <!-- URL : <input type="text" id="callbackurl" placeholder="url 설정"> -->
+        IP : <input type="text" id="callbackip" placeholder="IP 설정 / 공인IP">
+        PORT : <input type="text" id="callbackport" placeholder="포트 설정">
+        <button onclick="setCallback()">값 설정하기</button>
+    </div>
+    <div>
+        <button onclick="getringcallback()">URL알림설정 정보 조회</button>
+        <button onclick="setringcallback()">URL알림설정 정보 설정</button>
+        <button onclick="delringcallback()">URL알림 설정 삭제</button>
+    </div>
+
+    <h2>MQTT IP:PORT 설정</h2>
+    <div>
+        <input type="text" id="setmqttipport" placeholder="IP:PORT형식으로 적어주세요.">
+        <button onclick="setMqttIpPort()">MQTT IP:PORT 설정</button>
+    </div>
+
+    <h2>ESP32 IP:PORT 설정</h2>
+    <div>
+        <input type="text" id="setesp32address" placeholder="IP:PORT형식으로 적어주세요.">
+        <button onclick="setEsp32Address()">ESP32 주소 설정</button>
+    </div>
+
+    <h2>타이머 설정</h2>
+    <div>
+        <input type="number" id="timernumber" placeholder="타이머 (초)"><br>
+        <button onclick="setTimer(1)">DOOR 입장가능 대기시간 설정</button><br><!-- 입력 받은 시간내로 전화나 센서에 접근해야합니다 -->
+        <button onclick="setTimer(2)">DOOR 열려있는 시간 설정</button><br>
+        <button onclick="setTimer(3)">전화번호 삭제타이머(기본 4시간 = 14400초)</button><br>
+        <button onclick="setTimer(4)">승인번호 입력 대기시간 설정</button><br><!-- 입력시간내로 승인번호를 입력해야합니다. -->
+    </div>
+
+    <script>
+        document.getElementById('serverip').textContent = serverip;
+        document.getElementById('serverport').textContent = serverport;
+        document.getElementById('lguid').textContent = id;
+        document.getElementById('lgupass').textContent = pass;
+    </script>
+
+</html>
